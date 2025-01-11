@@ -5,23 +5,30 @@ import { getVideoProgress, postVideoProgress } from "../data";
 type Propstype = {
   videoUrl: string;
   videoId: number;
+  eps?: string;
 };
 
 const VideoPlayer: FC<Propstype> = (props) => {
   const [playedSeconds, setPlayedSeconds] = useState<number>(0);
   const [hasSeeked, setHasSeeked] = useState<boolean>(false);
   const playerRef = useRef<ReactPlayer | null>(null);
+  const videoId = props.eps
+    ? `${props.videoId}-${props.eps}`
+    : props.videoId.toString();
 
   useEffect(() => {
-    const savedProgress = getVideoProgress(props.videoId);
-    if (savedProgress) {
+    const savedProgress = getVideoProgress(videoId);
+    if (savedProgress !== null) {
       setPlayedSeconds(savedProgress);
       console.log(`Loaded progress: ${savedProgress}`);
+    } else {
+      setPlayedSeconds(0);
+      postVideoProgress(videoId, 0);
     }
   }, [props.videoId]);
 
   const handleReady = () => {
-    if (playerRef.current && playedSeconds > 0 && !hasSeeked) {
+    if (playerRef.current && playedSeconds >= 0 && !hasSeeked) {
       playerRef.current.seekTo(playedSeconds, "seconds");
       console.log(`Seeking to: ${playedSeconds}`);
       setHasSeeked(true);
@@ -31,7 +38,7 @@ const VideoPlayer: FC<Propstype> = (props) => {
   const handleProgress = (progress: { playedSeconds: number }) => {
     if (hasSeeked) {
       setPlayedSeconds(progress.playedSeconds);
-      postVideoProgress(props.videoId, progress.playedSeconds);
+      postVideoProgress(videoId, progress.playedSeconds);
     }
   };
 
@@ -39,7 +46,7 @@ const VideoPlayer: FC<Propstype> = (props) => {
     <div>
       <ReactPlayer
         ref={playerRef}
-        url={props.videoUrl}
+        url={`/movie/${props.videoUrl}`}
         controls
         onReady={handleReady}
         onProgress={handleProgress}

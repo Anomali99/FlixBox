@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
-import { Footer, Header, Poster } from "../components";
+import { Container, Footer, Header } from "../components";
+import { getData } from "../data";
 
 type SubTitleType = {
   name: string;
@@ -38,22 +39,22 @@ type FilmType = {
 const HomePage: FC = () => {
   const [film, setFilm] = useState<FilmType[]>([]);
 
-  useEffect(() => {
-    const filmList: FilmType[] = [];
-    for (let i = 1; i < 41; i++) {
-      filmList.push({
-        id: i,
-        title: `Soul Land ${i}`,
-        slug: `soul-land-${i}`,
-        year: "2024",
-        type: "movie",
-        poster: "poster.jpg",
-        group: { id: 1, name: "animation" },
-        genre: [{ id: 1, name: "action" }],
-        path: { moviePath: "film.mkv" },
-      });
+  const setup = async () => {
+    const response = await getData();
+    if (response != null) {
+      setFilm(response.film);
+      // const listFilm: FilmType[] = [];
+      // for (let i = 0; i < 10; i++) {
+      //   response.film.forEach((value) => {
+      //     listFilm.push(value);
+      //   });
+      // }
+      // setFilm(listFilm);
     }
-    setFilm(filmList);
+  };
+
+  useEffect(() => {
+    setup();
   }, []);
 
   return (
@@ -63,17 +64,7 @@ const HomePage: FC = () => {
         <div className="uppercase bg-primary px-2 py-1 mb-4 rounded-md font-bold text-bgColor">
           my collection
         </div>
-        <div className="grid gap-3 lg:gap-6 grid-cols-3 lg:grid-cols-6 ">
-          {film.map((item, index) => (
-            <Poster
-              key={index}
-              title={item.title}
-              type={item.type}
-              href={item.slug}
-              url={item.poster}
-            />
-          ))}
-        </div>
+        <Container film={film} />
       </div>
       <Footer />
     </>

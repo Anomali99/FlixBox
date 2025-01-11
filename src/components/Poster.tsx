@@ -17,7 +17,13 @@ const Poster: FC<PropsType> = (props) => {
             src={`/image/${props.url}`}
             alt={props.title}
           />
-          <div className="absolute top-0 right-0 bg-primary text-bgColor uppercase font-bold text-xs lg:text-sm py-1 px-2 rounded-tr-md rounded-bl-md">
+          <div
+            className={`absolute top-0 right-0 uppercase font-bold text-xs lg:text-sm py-1 px-2 rounded-tr-md rounded-bl-md ${
+              props.type.toLowerCase() == "movie"
+                ? "bg-primary text-bgColor"
+                : "text-primary bg-bgColor"
+            }`}
+          >
             {props.type}
           </div>
           <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-b from-transparent to-white group-hover:to-secondary"></div>
