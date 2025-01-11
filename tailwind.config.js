@@ -9,6 +9,9 @@ export default {
         tertiary: "#E5D9F2",
         bgColor: "#F5EFFF",
       },
+      gridTemplateColumns: {
+        27: "repeat(27, minmax(0, 1fr))",
+      },
     },
   },
   plugins: [],

@@ -43,16 +43,16 @@ const VideoPlayer: FC<Propstype> = (props) => {
   };
 
   return (
-    <div>
-      <ReactPlayer
-        ref={playerRef}
-        url={`/movie/${props.videoUrl}`}
-        controls
-        onReady={handleReady}
-        onProgress={handleProgress}
-        progressInterval={1000}
-      />
-    </div>
+    <ReactPlayer
+      ref={playerRef}
+      url={`/movie/${props.videoUrl}`}
+      controls
+      onReady={handleReady}
+      onProgress={handleProgress}
+      progressInterval={1000}
+      width="100%"
+      height="100%"
+    />
   );
 };
 

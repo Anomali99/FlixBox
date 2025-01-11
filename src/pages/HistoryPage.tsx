@@ -44,13 +44,26 @@ const HistoryPage: FC = () => {
     const cache = getAllVideoProgress();
 
     const history: FilmType[] = [];
+    console.log("start");
     cache.forEach((item) => {
-      const videoId = parseInt(item.videoId);
+      const videoIdStorage = item.videoId.split("-");
+      const videoId = parseInt(videoIdStorage[0]);
+      const videoEps = videoIdStorage[1];
       if (!isNaN(videoId) && data) {
         const result = data.film.find((film) => film.id === videoId);
-        if (result) history.push(result);
+        if (result)
+          history.push(
+            videoEps
+              ? {
+                  ...result,
+                  title: `${result.title} Eps ${videoEps}`,
+                  slug: `${result.slug}?eps=${videoEps}`,
+                }
+              : result
+          );
       }
     });
+    console.log("end");
     setFilm(history);
   };
 
