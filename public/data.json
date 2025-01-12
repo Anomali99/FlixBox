@@ -1,7 +1,7 @@
 {
   "genre": [
-    { "id": 1, "name": "action" },
-    { "id": 2, "name": "animation" }
+    { "id": 1, "name": "Action" },
+    { "id": 2, "name": "Animation" }
   ],
   "group": [
     {
