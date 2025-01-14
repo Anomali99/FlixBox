@@ -12,7 +12,7 @@ Simple web application for streaming video collections. Using it is quite easy, 
 
 #### 1. Build Project
 
-you can [download the build](https://github.com/Anomali99/FlixBox/releases/tag/build) or build manually :
+you can [download the build](https://github.com/Anomali99/FlixBox/releases/tag/build-1.1) or build manually :
 
 - clone github repository
 
@@ -108,6 +108,22 @@ poster and video paths are written without including the `video/image` and witho
 ```
 
 you can see the data type details for `DataType` in [data/index.ts](https://github.com/Anomali99/FlixBox/blob/main/src/data/index.ts).
+
+#### 3. Configuration (Optional)
+
+you can add configuration to the app.conf.json file, the configuration is `height` and `hide`. height is the number of x6 films displayed in home, search and history. while hide is to hide films based on `title/year/type/group/class/genre`, this hide is optional so it is not mandatory, the use of hide can also be stacked.
+
+- configuration example
+
+```json
+{
+  "height": 4,
+  "hide": {
+    "title": ["Transformers One"],
+    "genre": ["Animation"]
+  }
+}
+```
 
 #### 3. Finished
 
