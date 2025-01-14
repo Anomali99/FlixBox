@@ -7,6 +7,7 @@ type LocalStorageType = {
 type SubTitleType = {
   name: string;
   path: string;
+  language?: string;
 };
 
 type GenreType = {
@@ -70,13 +71,33 @@ type ConfigType = {
 const getData = async (): Promise<DataType | null> => {
   try {
     const response = await fetch("/data.json");
+    const config = await getConfig();
     if (!response.ok) {
       throw new Error(
         `Network response was not ok: ${response.status} ${response.statusText}`
       );
     }
-    const data = await response.json();
-    return data as DataType;
+
+    const data: DataType | null = await response.json();
+    const filtered: FilmType[] = [];
+
+    if (data && "film" in data && Array.isArray(data.film)) {
+      data.film.forEach((item) => {
+        if (
+          !config.hide.title?.includes(item.title) &&
+          !config.hide.year?.includes(item.year) &&
+          !config.hide.type?.includes(item.type) &&
+          !config.hide.group?.includes(item.group.name) &&
+          !(item.class && config.hide.class?.includes(item.class.name)) &&
+          !item.genre.some((value) => config.hide.group?.includes(value.name))
+        ) {
+          filtered.push(item);
+        }
+      });
+      return { ...data, film: filtered };
+    } else {
+      return data;
+    }
   } catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
     return null;

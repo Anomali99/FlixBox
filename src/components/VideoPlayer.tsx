@@ -2,10 +2,17 @@ import { FC, useState, useEffect, useRef } from "react";
 import ReactPlayer from "react-player";
 import { getVideoProgress, postVideoProgress } from "../data";
 
+type SubTitleType = {
+  name: string;
+  path: string;
+  language?: string;
+};
+
 type Propstype = {
   videoUrl: string;
   videoId: number;
   eps?: string;
+  subtitles?: SubTitleType[];
 };
 
 const VideoPlayer: FC<Propstype> = (props) => {
@@ -52,6 +59,24 @@ const VideoPlayer: FC<Propstype> = (props) => {
       progressInterval={1000}
       width="100%"
       height="100%"
+      config={
+        props.subtitles && props.subtitles.length > 0
+          ? {
+              file: {
+                attributes: {
+                  crossOrigin: "anonymous",
+                },
+                tracks: props.subtitles.map((subtitle, index) => ({
+                  kind: "subtitles",
+                  src: subtitle.path,
+                  srcLang: subtitle.language || "id",
+                  label: subtitle.name,
+                  default: index === 0,
+                })),
+              },
+            }
+          : undefined
+      }
     />
   );
 };

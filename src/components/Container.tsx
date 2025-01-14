@@ -6,6 +6,7 @@ import { getConfig } from "../data";
 type SubTitleType = {
   name: string;
   path: string;
+  language?: string;
 };
 
 type ClassType = {

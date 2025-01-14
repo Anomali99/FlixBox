@@ -5,6 +5,7 @@ import { clearVideoProgress, getAllVideoProgress, getData } from "../data";
 type SubTitleType = {
   name: string;
   path: string;
+  language?: string;
 };
 
 type ClassType = {

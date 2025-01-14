@@ -5,6 +5,7 @@ import { getData } from "../data";
 type SubTitleType = {
   name: string;
   path: string;
+  language?: string;
 };
 
 type ClassType = {
@@ -43,13 +44,6 @@ const HomePage: FC = () => {
     const response = await getData();
     if (response != null) {
       setFilm(response.film);
-      // const listFilm: FilmType[] = [];
-      // for (let i = 0; i < 10; i++) {
-      //   response.film.forEach((value) => {
-      //     listFilm.push(value);
-      //   });
-      // }
-      // setFilm(listFilm);
     }
   };
 

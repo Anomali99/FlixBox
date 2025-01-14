@@ -8,6 +8,7 @@ type ParamsType = { slug: string };
 type SubTitleType = {
   name: string;
   path: string;
+  language?: string;
 };
 
 type ClassType = {
