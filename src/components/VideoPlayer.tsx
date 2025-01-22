@@ -1,21 +1,16 @@
 import { FC, useState, useEffect, useRef } from "react";
 import ReactPlayer from "react-player";
 import { getVideoProgress, postVideoProgress } from "../data";
+import { SubTitleType } from "../data/types";
 
-type SubTitleType = {
-  name: string;
-  path: string;
-  language?: string;
-};
-
-type Propstype = {
+type PropsType = {
   videoUrl: string;
   videoId: number;
   eps?: string;
   subtitles?: SubTitleType[];
 };
 
-const VideoPlayer: FC<Propstype> = (props) => {
+const VideoPlayer: FC<PropsType> = (props) => {
   const [playedSeconds, setPlayedSeconds] = useState<number>(0);
   const [hasSeeked, setHasSeeked] = useState<boolean>(false);
   const playerRef = useRef<ReactPlayer | null>(null);

@@ -1,10 +1,12 @@
 import { FC, useState, useEffect } from "react";
 
-export const Pagination: FC<{
+type PropsType = {
   page: number;
   max: number;
   setCurrent: (value: number) => void;
-}> = (props) => {
+};
+
+export const Pagination: FC<PropsType> = (props) => {
   if (props.max === 1 || props.max === 0) return null;
   const [page, setPage] = useState<number>(props.page);
   const [pages, setPages] = useState<(string | number | null)[]>([]);

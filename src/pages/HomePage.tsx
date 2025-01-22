@@ -1,41 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Container, Footer, Header } from "../components";
 import { getData } from "../data";
-
-type SubTitleType = {
-  name: string;
-  path: string;
-  language?: string;
-};
-
-type ClassType = {
-  id: number;
-  name: string;
-};
-
-type MoviePathType = {
-  moviePath: string;
-  subTitle?: SubTitleType[];
-};
-
-type SeriesType = {
-  eps: string;
-  moviePath: string;
-  subTitle?: SubTitleType[];
-};
-
-type FilmType = {
-  id: number;
-  title: string;
-  slug: string;
-  year: string;
-  type: string;
-  poster: string;
-  group: ClassType;
-  class?: ClassType;
-  genre: ClassType[];
-  path: MoviePathType | SeriesType[];
-};
+import { FilmType } from "../data/types";
 
 const HomePage: FC = () => {
   const [film, setFilm] = useState<FilmType[]>([]);

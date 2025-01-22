@@ -2,43 +2,9 @@ import { FC, useEffect, useState } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { Container, Footer, Header, VideoPlayer } from "../components";
 import { getData } from "../data";
+import { FilmType, MoviePathType, SeriesPathType } from "../data/types";
 
 type ParamsType = { slug: string };
-
-type SubTitleType = {
-  name: string;
-  path: string;
-  language?: string;
-};
-
-type ClassType = {
-  id: number;
-  name: string;
-};
-
-type MoviePathType = {
-  moviePath: string;
-  subTitle?: SubTitleType[];
-};
-
-type SeriesType = {
-  eps: string;
-  moviePath: string;
-  subTitle?: SubTitleType[];
-};
-
-type FilmType = {
-  id: number;
-  title: string;
-  slug: string;
-  year: string;
-  type: string;
-  poster: string;
-  group: ClassType;
-  class?: ClassType;
-  genre: ClassType[];
-  path: MoviePathType | SeriesType[];
-};
 
 const ContentPage: FC = () => {
   const navigate = useNavigate();
@@ -64,7 +30,7 @@ const ContentPage: FC = () => {
           const moviePath = result.path as MoviePathType;
           setPath(moviePath.moviePath);
         } else if (result.type.toLowerCase() == "series") {
-          const seriesPaths = result.path as SeriesType[];
+          const seriesPaths = result.path as SeriesPathType[];
           const findPath = eps
             ? seriesPaths.find((item) => item.eps === eps)
             : undefined;
@@ -100,9 +66,9 @@ const ContentPage: FC = () => {
     return contentTemp;
   };
 
-  const getSeriesPath = (): SeriesType[] => {
+  const getSeriesPath = (): SeriesPathType[] => {
     if (content?.type.toLowerCase() === "series") {
-      return content.path as SeriesType[];
+      return content.path as SeriesPathType[];
     } else {
       return [];
     }
