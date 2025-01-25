@@ -96,24 +96,34 @@ const ContentPage: FC = () => {
               className="w-1/3 lg:w-40 object-contain rounded-md"
             />
             <div className="w-full h-full font-semibold capitalize">
-              <p className="font-bold text-xl text-wrap hidden lg:block">
+              <p className="font-bold text-7xl lg:text-xl text-wrap hidden md:block">
                 {content?.title}
               </p>
-              <p>Year: {content?.year}</p>
-              <p>Type: {content?.type}</p>
-              <p>Group: {content?.group?.name}</p>
-              {content?.class && <p>Class: {content?.class?.name}</p>}
-              <p>
+              <p className="text-base md:text-4xl lg:text-base">
+                Year: {content?.year}
+              </p>
+              <p className="text-base md:text-4xl lg:text-base">
+                Type: {content?.type}
+              </p>
+              <p className="text-base md:text-4xl lg:text-base">
+                Group: {content?.group?.name}
+              </p>
+              {content?.class && (
+                <p className="text-base md:text-4xl lg:text-base">
+                  Class: {content?.class?.name}
+                </p>
+              )}
+              <p className="text-base md:text-4xl lg:text-base">
                 Genre: {content?.genre?.map((item) => item.name).join(", ")}
               </p>
             </div>
           </div>
         </div>
         {content?.type.toLowerCase() === "series" ? (
-          <div className="bg-tertiary grid grid-cols-10 lg:grid-cols-27 gap-1.5 lg:gap-3 mt-3 p-4 rounded-md">
+          <div className="bg-tertiary grid grid-cols-7 lg:grid-cols-20 gap-1.5 lg:gap-3 mt-3 p-4 rounded-md max-h-[15vh] lg:max-h-[30vh] overflow-y-auto">
             {getSeriesPath().map((item) => (
               <a
-                className={`px-1 py-0.5 text-sm lg:text-base lg:px-2 lg:py-1 rounded-md  ${
+                className={`px-1 py-0.5 text-xs text-center md:text-base lg:px-2 lg:py-1 rounded-md  ${
                   eps === item.eps
                     ? "bg-primary text-bgColor cursor-default"
                     : "bg-bgColor text-primary hover:bg-secondary hover:text-bgColor"

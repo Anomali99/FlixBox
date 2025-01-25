@@ -25,3 +25,5 @@ dist-ssr
 
 public/movie/*
 public/image/*
+public/image/data.json
+public/image/app.conf.json

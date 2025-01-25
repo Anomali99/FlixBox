@@ -13,7 +13,7 @@ const Poster: FC<PropsType> = (props) => {
       <a href={props.href}>
         <div className="relative w-full">
           <img
-            className="w-full h-full rounded-t-md"
+            className="w-full h-full object-cover aspect-[27/40] rounded-t-md"
             src={`/image/${props.url}`}
             alt={props.title}
           />
