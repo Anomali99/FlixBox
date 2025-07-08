@@ -2,7 +2,7 @@ import { FilmType, DataType, ConfigType, LocalStorageType } from "./types";
 
 const getData = async (): Promise<DataType | null> => {
   try {
-    const response = await fetch("/data.json");
+    const response = await fetch(`/data.json?t=${Date.now()}`);
     const config = await getConfig();
     if (!response.ok) {
       throw new Error(
@@ -38,7 +38,7 @@ const getData = async (): Promise<DataType | null> => {
 
 const getConfig = async (): Promise<ConfigType> => {
   try {
-    const response = await fetch("/app.conf.json");
+    const response = await fetch(`/app.conf.json?t=${Date.now()}`);
     if (!response.ok) {
       throw new Error(
         `Network response was not ok: ${response.status} ${response.statusText}`
